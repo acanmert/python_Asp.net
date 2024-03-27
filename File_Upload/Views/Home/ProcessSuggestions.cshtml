@@ -1,0 +1,39 @@
+﻿@model List<String>
+
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Öneri</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var suggestion in Model)
+            {
+                <tr>
+                    <td>@suggestion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

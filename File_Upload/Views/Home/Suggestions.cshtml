@@ -1,0 +1,65 @@
+﻿@model List<string>
+
+<head>
+    <style>
+        .input-group {
+            display: flex; /* Grup öğeleri yatayda hizalar */
+            align-items: center; /* Dikey hizalama */
+            margin-bottom: 10px; /* Gruplar arası boşluk */
+        }
+
+            .input-group label {
+                flex: 0 0 200px; /* Etiketlerin genişliği */
+                margin-right: 20px; /* Etiketler arası boşluk */
+            }
+
+            .input-group input {
+                flex: 1; /* Giriş alanının genişliği */
+            }
+    </style>
+</head>
+<form>
+    <div class="input-group">
+        <label for="fileName">Dosya Seçin</label>
+     
+        <select type="text" name="fileName" id="fileName">
+
+            @foreach (var file in Model)
+            {
+            <option value="@file">@file</option>
+            }
+        </select type="text">
+
+    </div>
+
+    <div class="input-group">
+        <label for="benzerlikName">Benzerlik seçiniz</label>
+    
+        <input type="text" name="benzerlikName" id="benzerlikName">
+
+    </div>
+
+    <div class="input-group">
+        <label for="getProductName">Aradığınız Ürünü Giriniz</label>
+        <input type="text" name="getProductName" id="getProductName">
+    </div>
+
+    <div class="input-group">
+        <label for="productName">Veri Setindeki Product Name'i Giriniz</label>
+        <input type="text" name="productName" id="productName">
+    </div>
+
+    <div class="input-group">
+        <label>Veri türü int mi?</label>
+        <div>
+            <input type="radio" id="evet" name="p_type" value="evet">
+            <label for="evet">Evet</label>
+        </div>
+        <div>
+            <input type="radio" id="hayir" name="p_type" value="hayir">
+            <label for="hayir">Hayır</label>
+        </div>
+    </div>
+
+    <button asp-controller="Home" asp-action="ProcessSuggestions" class="btn btn-danger">Submit</button>
+</form>
