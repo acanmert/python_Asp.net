@@ -31,42 +31,39 @@ namespace File_Upload.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult ImageUpload()
+        public IActionResult DataUpload()
         {
 
             return View(GetFile());
         }
         [HttpPost]
-        public async Task<IActionResult> ImageUpload(IFormFile formFile)
+        public async Task<IActionResult> DataUpload(IFormFile formFile)
         {
             //...ekleme işlemleri   
-            if (formFile != null)
+            if (formFile != null && formFile.FileName.EndsWith(".csv"))
             {
-
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img", formFile.FileName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\dataset", formFile.FileName);
 
                 using (var stream = new FileStream(path, FileMode.Create))
                 {
                     await formFile.CopyToAsync(stream);
                 }
-
-
             }
             return View(GetFile());
         }
         public List<string> GetFile()
         {
-            var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img");
-            var imgFiles = Directory.GetFiles(imgPath);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\dataset");
+            var dataSet = Directory.GetFiles(filePath);
 
-            List<string> imgFileNames = new List<string>();
-            foreach (var file in imgFiles)
+            List<string> dataFileNames = new List<string>();
+            foreach (var data in dataSet)
             {
-                imgFileNames.Add(Path.GetFileName(file));
+                    dataFileNames.Add(Path.GetFileName(data));
             }
-            return imgFileNames;
+            return dataFileNames;
         }
-        public string Python(string fileName ,string benzerlikName, string productName, string getProductName, string p_type)
+        public string Python(string fileName, string benzerlikName, string productName, string getProductName, string p_type)
         {
             string output;
             ProcessStartInfo start = new ProcessStartInfo();
@@ -82,17 +79,13 @@ namespace File_Upload.Controllers
             {
                 using (StreamWriter writer = process.StandardInput)
                 {
-
                     writer.WriteLine(fileName.ToString()); // Örneğin, veri seti seçimi için.
                     writer.WriteLine(benzerlikName.ToString());
                     writer.WriteLine(getProductName.ToString());
                     writer.WriteLine(productName.ToString());
                     writer.WriteLine(p_type.ToString());
-
-
                 }
-                string errors = process.StandardError.ReadToEnd();
-                // Python scriptinin çıktısını oku
+
                 output = process.StandardOutput.ReadToEnd();
 
 
@@ -101,18 +94,32 @@ namespace File_Upload.Controllers
         }
 
         string file;
-        public IActionResult Suggestions()
+        public IActionResult Suggestions(string fileName)
         {
-            return View(GetFile());
+            FileUploadViewModel file = new FileUploadViewModel();
+            file.FieldList=Header(fileName);
+            file.FileNames = GetFile();
+            file.ThisFileName = fileName;
+            return View(file);
         }
-        public IActionResult ProcessSuggestions(string fileName, string benzerlikName,string productName,string getProductName,string p_type)
+        public IActionResult ProcessSuggestions(string fileName, string benzerlikName, string productName, string getProductName, string p_type)
         {
-            var recommendations = Python(fileName, benzerlikName,productName,getProductName,p_type);
+            var header=Header(fileName);
+            var recommendations = Python(fileName, benzerlikName, productName, getProductName, p_type);
             var recommendationList = recommendations.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
             return View(recommendationList);
         }
 
-
+        public string Header(string fileName)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\dataset", fileName);
+            using (var reader = new StreamReader(path))
+            {
+                // İlk satırı oku
+                string ilkSatir = reader.ReadLine();
+                return ilkSatir;
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

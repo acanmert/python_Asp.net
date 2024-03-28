@@ -21,7 +21,8 @@
                     @foreach (var fileName in Model)
                     {
                         @*  <button>@fileName</button>   asp-route-fileName="@fileName" *@
-                        <button asp-controller="Home" asp-action="Suggestions" class="btn btn-danger"> @fileName  </button>
+                        <br />
+                        <button asp-controller="Home" asp-action="Suggestions" class="btn btn-danger" asp-route-fileName="@fileName"> @fileName  </button>
 
                         @*<img src="~/img/@fileName" alt="@fileName" /><p>@fileName</p>*@
                     }

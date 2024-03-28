@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model FileUploadViewModel
 
 <head>
     <style>
@@ -21,20 +21,20 @@
 <form>
     <div class="input-group">
         <label for="fileName">Dosya Seçin</label>
-     
+
         <select type="text" name="fileName" id="fileName">
 
-            @foreach (var file in Model)
+            @foreach (var file in Model.FileNames)
             {
-            <option value="@file">@file</option>
+                <option value="@file">@file</option>
             }
-        </select type="text">
+        </select>
 
     </div>
 
     <div class="input-group">
         <label for="benzerlikName">Benzerlik seçiniz</label>
-    
+
         <input type="text" name="benzerlikName" id="benzerlikName">
 
     </div>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="input-group">
-        <label>Veri türü int mi?</label>
+        <label>Veri türü nümerik mi?</label>
         <div>
             <input type="radio" id="evet" name="p_type" value="evet">
             <label for="evet">Evet</label>
@@ -61,5 +61,5 @@
         </div>
     </div>
 
-    <button asp-controller="Home" asp-action="ProcessSuggestions" class="btn btn-danger">Submit</button>
+    <button asp-controller="Home" asp-action="ProcessSuggestions" class="btn btn-danger">Öneri al</button>
 </form>
