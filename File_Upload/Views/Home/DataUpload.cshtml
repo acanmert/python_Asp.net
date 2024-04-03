@@ -12,7 +12,7 @@
             <input type="file" name="formFile" class="form-control-file" id="exampleFormControlFile1">
 
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Dosyayı Gönder</button>
+        <button type="submit" class="btn btn-primary">Dosyayı Gönder</button>
 
         <div>
             <h2>Yüklenen Dosyalar</h2>
@@ -22,7 +22,7 @@
 
                         @foreach (var fileName in Model)
                         {
-                <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-danger"> @fileName </button>
+                             <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s"> @fileName </button>
                         }
                   
                 }
