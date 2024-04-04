@@ -63,7 +63,7 @@ namespace File_Upload.Controllers
             }
             return dataFileNames;
         }
-        public string Python(string fileName, string benzerlikName, string productName, string getProductName, string p_type)
+        public string Python(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
         {
             string output;
             ProcessStartInfo start = new ProcessStartInfo();
@@ -79,8 +79,9 @@ namespace File_Upload.Controllers
             {
                 using (StreamWriter writer = process.StandardInput)
                 {
+                    string benzerlik = string.Join(",", benzerlikName);
                     writer.WriteLine(fileName.ToString()); // Örneğin, veri seti seçimi için.
-                    writer.WriteLine(benzerlikName.ToString());
+                    writer.WriteLine(benzerlik.ToString());
                     writer.WriteLine(getProductName.ToString());
                     writer.WriteLine(productName.ToString());
                     writer.WriteLine(p_type.ToString());
@@ -93,31 +94,33 @@ namespace File_Upload.Controllers
             return output;
         }
 
-        string file;
+     
         public IActionResult Suggestions(string fileName)
         {
             FileUploadViewModel file = new FileUploadViewModel();
+
             file.FieldList=Header(fileName);
             file.FileNames = GetFile();
             file.ThisFileName = fileName;
             return View(file);
         }
-        public IActionResult ProcessSuggestions(string fileName, string benzerlikName, string productName, string getProductName, string p_type)
+        public IActionResult ProcessSuggestions(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
         {
-            var header=Header(fileName);
             var recommendations = Python(fileName, benzerlikName, productName, getProductName, p_type);
             var recommendationList = recommendations.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
             return View(recommendationList);
         }
 
-        public string Header(string fileName)
+        public List<string> Header(string fileName)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\dataset", fileName);
             using (var reader = new StreamReader(path))
             {
                 // İlk satırı oku
                 string ilkSatir = reader.ReadLine();
-                return ilkSatir;
+                List<string> liste = ilkSatir.Split(',').ToList();
+                return liste;
             }
         }
 

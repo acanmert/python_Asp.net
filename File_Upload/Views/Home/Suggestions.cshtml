@@ -20,23 +20,20 @@
 </head>
 <form>
     <div class="input-group">
-        <label for="fileName">Dosya Seçin</label>
-
-        <select type="text" name="fileName" id="fileName">
-
-            @foreach (var file in Model.FileNames)
-            {
-                <option value="@file">@file</option>
-            }
-        </select>
+       
+        <input type="hidden" name="fileName" id="fileName" value="@Model.ThisFileName">
 
     </div>
 
     <div class="input-group">
         <label for="benzerlikName">Benzerlik seçiniz</label>
 
-        <input type="text" name="benzerlikName" id="benzerlikName">
-
+        <select type="text" name="benzerlikName" id="benzerlikName" multiple>
+            @foreach (var file in Model.FieldList)
+            {
+                <option value="@file">@file</option>
+            }
+        </select>
     </div>
 
     <div class="input-group">
