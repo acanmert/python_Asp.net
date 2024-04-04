@@ -1,0 +1,46 @@
+﻿.cmp1 {
+    width: 420px;
+    background: #333;
+    color: #fff;
+    border-radius: 20px;
+    padding: 30px 40px;
+    margin: 15px;
+}
+#dosyaYukle {
+    font-size: 26px;
+    text-align: center;
+}
+#dosyaSec {
+    text-align: center;
+}
+
+#btn {
+    width: 50%;
+    text-align:center !important; 
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+.cmp2 {
+    width: 420px;
+    background: #333;
+    color: #fff;
+    border-radius: 20px;
+    padding: 30px 40px;
+    margin: 15px;
+}
+#yuklenenDosyalar {
+    font-size: 26px;
+    text-align: center;
+}
+ .dosyalar{
+     text-align: center;
+     margin: 20px;
+ }
