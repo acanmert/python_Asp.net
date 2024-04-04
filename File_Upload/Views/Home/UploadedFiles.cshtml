@@ -1,0 +1,23 @@
+﻿@model List<string>
+
+<head>
+
+</head>
+<body>
+    <form asp-controller="Home" asp-action="DataUpload" method="post" enctype="multipart/form-data">
+            <div class=" cmp2 col">
+                <h2 id="yuklenenDosyalar">Yüklenen Dosyalar</h2>
+                <div class="dosyalar">
+                    @if (Model != null)
+                    {
+
+                        @foreach (var fileName in Model)
+                        {
+                            <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s btn-danger"> @fileName </button>
+                        }
+
+                    },
+            </div>
+        </div>
+    </form>
+</body>
