@@ -11,7 +11,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 def secimlik():
     secim = (input())
-    data = pd.read_csv('C:\\Users\\AhmetCan\\source\\repos\\File_Upload\\File_Upload\\wwwroot\\dataset\\' + secim,
+    data = pd.read_csv('C:\\Users\\NB\\Desktop\\Pr\\File_Upload\\wwwroot\\dataset\\' + secim,
                        encoding='ISO-8859-9')
     return data, secim
 

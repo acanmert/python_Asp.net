@@ -1,39 +1,81 @@
-﻿@model List<String>
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggestions</title>
     <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+           
+        }
+
+        h1 {
+            font-size: 24px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 70px;
         }
 
         th, td {
             border: 1px solid #dddddd;
             text-align: left;
-            padding: 8px;
+            padding: 12px;
         }
 
         th {
             background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #ffffff;
+            color: #555;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover td {
+            background-color: #e0e0e0;
         }
     </style>
 </head>
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>Öneri</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var suggestion in Model)
-            {
+
+    <div class="container">
+        <h1 style="font-size: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Suggestions</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td>@suggestion</td>
+                    <th>Öneri</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                
+                @foreach (var suggestion in Model)
+                {
+                    <tr>
+                        <td>@suggestion</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>
