@@ -24,7 +24,7 @@
 
                         @foreach (var fileName in Model)
                         {
-                             <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s"> @fileName </button>
+                             <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s btn-danger"> @fileName </button>
                         }
                   
                 }
