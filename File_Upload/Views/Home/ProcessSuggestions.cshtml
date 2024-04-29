@@ -1,81 +1,93 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@model List<String>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suggestions</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
         }
 
-        .container {
-            width: 80%;
+        form {
+            background-color: #fff;
+            max-width: 600px;
             margin: 20px auto;
-           
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
-        h1 {
-            font-size: 24px;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: #333;
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 70px;
+            .input-group label {
+                flex: 0 0 200px;
+                margin-right: 20px;
+                color: #333;
+            }
+
+            .input-group input,
+            .input-group select {
+                flex: 1;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                outline: none;
+            }
+
+                .input-group input:focus,
+                .input-group select:focus {
+                    border-color: #ff5c5c;
+                    box-shadow: 0 0 5px rgba(255, 92, 92, 0.5);
+                }
+
+                .input-group input[type="radio"] {
+                    margin-right: 5px;
+                }
+
+            .input-group div {
+                margin-right: 15px;
+            }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff5c5c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            align-self: flex-end;
         }
 
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 12px;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            color: #333;
-            font-weight: bold;
-        }
-
-        td {
-            background-color: #ffffff;
-            color: #555;
-        }
-
-        tr:nth-child(even) td {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover td {
-            background-color: #e0e0e0;
-        }
+            button:hover {
+                background-color: #ff4242;
+            }
     </style>
+
 </head>
 <body>
-
-    <div class="container">
-        <h1 style="font-size: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Suggestions</h1>
-        <table>
-            <thead>
+    <table>
+        <thead>
+            <tr>
+                <th>Öneri</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var suggestion in Model)
+            {
                 <tr>
-                    <th>Öneri</th>
+                    <td>@suggestion</td>
                 </tr>
-            </thead>
-            <tbody>
-                
-                @foreach (var suggestion in Model)
-                {
-                    <tr>
-                        <td>@suggestion</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
+            }
+        </tbody>
+    </table>
 </body>
 </html>
