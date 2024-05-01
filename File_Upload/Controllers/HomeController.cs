@@ -67,7 +67,7 @@ namespace File_Upload.Controllers
             return dataFileNames;
         }
 
-        public static async Task<List<dynamic>> get_recommendations(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
+        public static async Task<List<string>> get_recommendations(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
         {
             string benzerlik = string.Join(",", benzerlikName);
             string secim = fileName;
@@ -92,17 +92,19 @@ namespace File_Upload.Controllers
                 // API'den dönen JSON verisini oku
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                // JSON verisini diziye dönüştür
                 //var recommendations = Newtonsoft.Json.JsonConvert.DeserializeObject<string[] >(jsonResponse);
-                var resultList1 = JsonConvert.DeserializeObject<Dictionary<string, object>[]>(jsonResponse);
+                //List<dynamic> resultList = JsonConvert.DeserializeObject<List<dynamic>>(jsonResponse);
 
-                List<dynamic> resultList = JsonConvert.DeserializeObject<List<dynamic>>(jsonResponse);
-                // Önerileri döngü içinde değil, döngü bittiğinde toplu olarak döndür
-                return resultList;
+                //var resultList1 = JsonConvert.DeserializeObject<List<string>[]>(jsonResponse);
+
+                jsonResponse = jsonResponse.TrimStart('[').TrimEnd(']');
+                var recommendationList = jsonResponse.Split(new string[] { "dtype: object," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                return recommendationList;
             }
             else
             {
-                List<dynamic> error_List = new List<dynamic>();
+                List<string> error_List = new List<string>();
 
                 error_List.Add("-1");
 
@@ -155,13 +157,13 @@ namespace File_Upload.Controllers
         {
             // async Task<IActionResult>
             //IActionResult
-            var recommendations = Python(fileName, benzerlikName, productName, getProductName, p_type);
-            var recommendationList = recommendations.Split(new string[] { "dtype: object" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            return View(recommendationList);
+            //var recommendations = Python(fileName, benzerlikName, productName, getProductName, p_type);
+            //var recommendationList = recommendations.Split(new string[] { "dtype: object," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            //return View(recommendationList);
 
 
-            //var recommendations = await get_recommendations(fileName, benzerlikName, productName, getProductName, p_type);
-            //return View(recommendations);
+            var recommendations = await get_recommendations(fileName, benzerlikName, productName, getProductName, p_type);
+            return View(recommendations);
         }
 
         public List<string> Header(string fileName)
