@@ -151,17 +151,19 @@ namespace File_Upload.Controllers
             file.ThisFileName = fileName;
             return View(file);
         }
-        public async Task<IActionResult> ProcessSuggestions(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
+        public IActionResult ProcessSuggestions(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
         {
+            // async Task<IActionResult>
+            //IActionResult
             var recommendations = Python(fileName, benzerlikName, productName, getProductName, p_type);
             var recommendationList = recommendations.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
             return View(recommendationList);
-            var recommendations = await get_recommendations(fileName, benzerlikName, productName, getProductName, p_type);
-           // var recommendations =  Python(fileName, benzerlikName, productName, getProductName, p_type);
+            //var recommendations = await get_recommendations(fileName, benzerlikName, productName, getProductName, p_type);
+            // var recommendations =  Python(fileName, benzerlikName, productName, getProductName, p_type);
 
-             //var recommendationList = recommendations.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            //var recommendationList = recommendations.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            return View(recommendations);
+            //return View(recommendations);
         }
 
         public List<string> Header(string fileName)

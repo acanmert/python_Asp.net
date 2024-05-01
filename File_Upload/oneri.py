@@ -43,14 +43,13 @@ def cossim():
         similarity_scores = list(enumerate(cosine_sim[index]))
         similarity_scores = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
         top_recommendations = similarity_scores[1:top_n + 1]
-        data1 = p_name
-        # data2 = data[0]
-        # data3 = data[1]
 
-        recommended = [data[data1][top_data[0]] for top_data
-                       in top_recommendations]
-        # data[data2][top_data[0]], data[data3][top_data[0]]]
-        return recommended, [score[1] for score in top_recommendations]
+        recommended_rows = []
+        for top_data in top_recommendations:
+            recommended_rows.append(data.iloc[top_data[0]])
+
+        return recommended_rows, [score[1] for score in top_recommendations]
+
     # Kullanıcıdan film başlığı girdisi al input("Aradığınızı Girin: ")
     title = input()
 
