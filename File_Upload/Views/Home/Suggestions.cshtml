@@ -3,7 +3,6 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f2f2f2;
-            font-weight: 700;
             margin: 0;
             padding: 0;
         }
@@ -17,6 +16,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
+            font-weight: 700;
         }
 
         .input-group {
@@ -74,18 +74,12 @@
 
 <form>
     <div class="input-group">
-        <label>@Model.ThisFileName</label>
-        <input type="hidden" name="fileName" id="fileName" value="@Model.ThisFileName">
-
-    </div>
-
-    <div class="input-group">
-        <label for="benzerlikName">Benzerlik seçiniz</label>
+        <label for="fileName">Dosya Seçin</label>
 
         <select type="text" name="fileName" id="fileName">
             @foreach (var file in Model.FileNames)
             {
-            <option value="@file">@file</option>
+                <option value="@file">@file</option>
             }
         </select>
     </div>

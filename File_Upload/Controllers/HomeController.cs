@@ -150,10 +150,9 @@ namespace File_Upload.Controllers
         }
         public async Task<IActionResult> ProcessSuggestions(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
         {
-            var recommendations = await get_recommendations(fileName, benzerlikName, productName, getProductName, p_type);
-           // var recommendationList = recommendations.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-
-            return  View(recommendations);
+            var recommendations = Python(fileName, benzerlikName, productName, getProductName, p_type);
+            var recommendationList = recommendations.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return View(recommendationList);
         }
 
         public List<string> Header(string fileName)

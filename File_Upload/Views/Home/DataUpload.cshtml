@@ -1,22 +1,72 @@
 ﻿@model List<string>
 
 <head>
+    <style>
+        body{
+            background-color: #f2f2f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .cmp1 {
+            background-color: #fff;
+            color: black;
+            width: 40%;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            font-weight: 700;
+        }
 
+        .cmp2 {
+            background-color: #fff;
+            color: black;
+            width: 40%;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            font-weight: 700;
+        }
+        .row{
+            display: flex;
+            justify-content: center;
+        }
+
+        #btn5 {
+            padding: 10px 20px;
+            background-color: crimson;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+       
+            transition: background-color 0.3s ease;
+            align-self: flex-end; /* Move the button to the right */
+        }
+
+            #btn5:hover {
+                background-color: firebrick;
+            }
+        
+    </style>
 </head>
 <body>
     <form asp-controller="Home" asp-action="DataUpload" method="post" enctype="multipart/form-data">
         <div class="row">
-        <div class="cmp1 col">
+        <div class="cmp1">
         <div class="form-group">
 
             <h1 id="dosyaYukle"  >Dosya Yükle</h1>
                     <input id="dosyaSec" type="file" name="formFile">
 
         </div>
-        <button type="submit" id="btn">Dosyayı Gönder</button>
+        <button type="submit" id="btn5">Dosyayı Gönder</button>
 
     </div>
-        <div class=" cmp2 col">
+        <div class="cmp2">
             <h2 id="yuklenenDosyalar">Yüklenen Dosyalar</h2>
             <div class="dosyalar">
                 @if (Model != null)
@@ -27,7 +77,7 @@
                              <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s btn-danger"> @fileName </button>
                         }
                   
-                },
+                }
 
             </div>
         </div>
