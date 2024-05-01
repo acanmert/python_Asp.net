@@ -24,7 +24,7 @@ namespace File_Upload.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(GetFile());
         }
 
         public IActionResult Privacy()
