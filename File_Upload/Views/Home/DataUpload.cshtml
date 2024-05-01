@@ -1,6 +1,7 @@
 ﻿@model List<string>
 
 <head>
+    
 
 </head>
 <body>
@@ -16,7 +17,7 @@
         <button type="submit" id="btn">Dosyayı Gönder</button>
 
     </div>
-        <div class=" cmp2 col">
+        <div class=" cmp2 col ">
             <h2 id="yuklenenDosyalar">Yüklenen Dosyalar</h2>
             <div class="dosyalar">
                 @if (Model != null)
@@ -27,7 +28,7 @@
                              <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s btn-danger"> @fileName </button>
                         }
                   
-                },
+                }
 
             </div>
         </div>
