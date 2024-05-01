@@ -12,7 +12,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 def secimlik():
     secim = (input())
     data = pd.read_csv('wwwroot\\dataset\\' + secim,
-                       encoding='ISO-8859-9')
+                       encoding='"utf-8-sig')
     return data, secim
 
 def cossim():
