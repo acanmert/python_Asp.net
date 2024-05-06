@@ -98,7 +98,7 @@ namespace File_Upload.Controllers
                 //var resultList1 = JsonConvert.DeserializeObject<List<string>[]>(jsonResponse);
 
                 jsonResponse = jsonResponse.TrimStart('[').TrimEnd(']');
-                var recommendationList = jsonResponse.Split(new string[] { "dtype: object," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                var recommendationList = jsonResponse.Split(new string[] { "  }," }, StringSplitOptions.RemoveEmptyEntries).ToList(); //dtype: object,
 
                 return recommendationList;
             }
