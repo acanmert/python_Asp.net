@@ -67,13 +67,13 @@ namespace File_Upload.Controllers
             return dataFileNames;
         }
 
-        public static async Task<List<string>> get_recommendations(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
+        public static async Task<List<string>> get_recommendations(string fileName, List<string> benzerlikName, string p_primaryKey, string getProductName, string p_type)
         {
             string benzerlik = string.Join(",", benzerlikName);
             string secim = fileName;
             string selectedFeatures = benzerlik;
-            string title =getProductName ;
-            string pName = productName;
+            string p_name =getProductName ;
+            string p_pk = p_primaryKey;
             string pType = p_type;
 
             //string secim = "book_data.csv";
@@ -84,7 +84,7 @@ namespace File_Upload.Controllers
 
 
             // Flask API'sine GET isteği gönder
-            string apiUrl = $"http://127.0.0.1:5000/recommendations?secim={secim}&selected_features={string.Join(",", selectedFeatures)}&title={title}&p_name={pName}&p_type={pType}";
+            string apiUrl = $"http://127.0.0.1:5000/recommendations?secim={secim}&selected_features={string.Join(",", selectedFeatures)}&p_name={p_name}&p_pk={p_pk}&p_type={pType}";
             HttpResponseMessage response = await _client.GetAsync(apiUrl);
 
             if (response.IsSuccessStatusCode)
