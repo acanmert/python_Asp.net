@@ -1,37 +1,37 @@
 ﻿@model List<string>
 
 <head>
-    
+
 
 </head>
 <body>
     <form asp-controller="Home" asp-action="DataUpload" method="post" enctype="multipart/form-data">
         <div class="row">
-        <div class="cmp1 col">
-        <div class="form-group">
+            <div class="cmp1 col">
+                <div class="form-group">
 
-            <h1 id="dosyaYukle"  >Dosya Yükle</h1>
+                    <h1 id="dosyaYukle">Dosya Yükle</h1>
                     <input id="dosyaSec" type="file" name="formFile">
 
-        </div>
-        <button type="submit" id="btn">Dosyayı Gönder</button>
+                </div>
+                <button type="submit" id="btn">Dosyayı Gönder</button>
 
-    </div>
-        <div class=" cmp2 col ">
-            <h2 id="yuklenenDosyalar">Yüklenen Dosyalar</h2>
-            <div class="dosyalar">
-                @if (Model != null)
-                {
+            </div>
+            <div class=" cmp2 col ">
+                <h2 id="yuklenenDosyalar">Yüklenen Dosyalar</h2>
+                <div class="dosyalar">
+                    @if (Model != null)
+                    {
 
                         @foreach (var fileName in Model)
                         {
-                             <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s btn-danger"> @fileName </button>
+                            <button asp-controller="Home" asp-action="Suggestions" asp-route-fileName="@fileName" class="btn btn-s btn-danger"> @fileName </button>
                         }
-                  
-                }
 
+                    }
+
+                </div>
             </div>
-        </div>
         </div>
     </form>
 </body>
