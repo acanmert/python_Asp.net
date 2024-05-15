@@ -78,8 +78,8 @@
     </div>
 
     <div class="input-group">
-        <label for="benzerlikName">Benzerlik seçiniz</label>
-        <select type="text" name="benzerlikName" id="benzerlikName" multiple>
+        <label for="benzerlikName">Benzerlik seçiniz <br> (Birden Fazla Seçim İçin CTRL Tuşuna Basılı Tutun)</label>
+        <select type="text" name="selectedFeatures" id="selectedFeatures" multiple>
             @foreach (var file in Model.FieldList)
             {
                 <option value="@file">@file</option>
@@ -89,22 +89,27 @@
 
     <div class="input-group">
         <label for="getProductName">Aradığınız Ürünü Giriniz</label>
-        <input type="text" name="getProductName" id="getProductName">
+        <input type="text" name="p_name" id="p_name">
     </div>
 
     <div class="input-group">
         <label for="productName">Veri Setindeki Product Name'i Giriniz</label>
-        <input type="text" name="productName" id="productName">
+        <select type="text" name="p_pk" id="p_pk" >
+            @foreach (var file in Model.FieldList)
+            {
+                <option value="@file">@file</option>
+            }
+        </select>
     </div>
 
     <div class="input-group">
-        <label>Veri türü nümerik mi?</label>
+        <label>Primary Key Nümerik Mi?</label>
         <div>
-            <input type="radio" id="evet" name="p_type" value="evet">
+            <input type="radio" id="Evet" name="p_type" value="Evet">
             <label for="evet">Evet</label>
         </div>
         <div>
-            <input type="radio" id="hayir" name="p_type" value="hayir">
+            <input type="radio" id="Hayir" name="p_type" value="Hayir">
             <label for="hayir">Hayır</label>
         </div>
     </div>
