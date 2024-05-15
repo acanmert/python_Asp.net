@@ -178,6 +178,18 @@ namespace File_Upload.Controllers
             }
         }
 
+        public IActionResult DownloadSuggestions(List<string> suggestions)
+        {
+            // Generate the text content
+            var textContent = string.Join(Environment.NewLine, suggestions);
+
+            // Convert the text content to bytes
+            var contentBytes = Encoding.UTF8.GetBytes(textContent);
+
+            // Return the file as a download
+            return File(contentBytes, "text/plain", "suggestions.txt");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
