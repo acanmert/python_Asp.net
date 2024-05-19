@@ -12,10 +12,7 @@
         }
 
         form {
-            background-color: #fff;
             max-width: 600px;
-            margin: 20px auto;
-            padding: 5px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -70,45 +67,29 @@
             padding-bottom: 20px;
         }
 
-        button {
-            padding: 5px 15px;
-            background-color: #3364FF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            outline: none;
-            transition: background-color 0.3s ease;
-
-        }
-
-            button:hover {
-                transition: background-color 0.3s ease;
-                background-color: #0233CD;
-            }
-
-        .download-button{
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;   
-        }
-
         .process_suggestion_form{
             margin: 0   
+        }
+
+        .header_container{
+           padding: 0;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
         }
 
 
     </style>
 </head>
 <body>
-    <div class="download-button">
+    <div class="header_container">
         <h2>Suggestions</h2>
-
-        <form class="process_suggestion_form" method="post" action="@Url.Action("DownloadSuggestions", "Home")">
-            <input  type="hidden" name="suggestions" value="@string.Join(",", Model)" />
-            <button type="submit">Download</button>
+        <form method="post" action="@Url.Action("Download", "Home")">
+            <button type="submit" class="btn btn-primary">Download</button>
+            <input type="hidden" name="data" value="@string.Join(",", Model)" />
         </form>
     </div>
+       
     <div class="table-container">
         <table>
             <tbody>
@@ -121,5 +102,7 @@
             </tbody>
         </table>
     </div>
+
+   
 </body>
 </html>

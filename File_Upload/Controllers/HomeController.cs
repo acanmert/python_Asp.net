@@ -105,19 +105,19 @@ namespace File_Upload.Controllers
             return View(recommendations);
         }
 
-
-
-        public IActionResult DownloadSuggestions(List<string> suggestions)
+        public IActionResult Download(List<string> data)
         {
-            // Generate the text content
-            var textContent = string.Join(Environment.NewLine, suggestions);
+            var csvContent = string.Join(Environment.NewLine, data);
 
-            // Convert the text content to bytes
-            var contentBytes = Encoding.UTF8.GetBytes(textContent);
+            var fileName = "suggestions.csv";
+            Response.Headers.Add("Content-Disposition", "attachment; filename=" + fileName);
+            Response.ContentType = "text/csv";
 
-            // Return the file as a download
-            return File(contentBytes, "text/plain", "suggestions.txt");
+
+            return File(Encoding.UTF8.GetBytes(csvContent), "text/csv", fileName);
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
