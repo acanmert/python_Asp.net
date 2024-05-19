@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Suggestions.Concrete
@@ -78,7 +79,12 @@ namespace Suggestions.Concrete
                 //var resultList1 = JsonConvert.DeserializeObject<List<string>[]>(jsonResponse);
 
                 jsonResponse = jsonResponse.TrimStart('[').TrimEnd(']');
-                var recommendationList = jsonResponse.Split(new string[] { "  }," }, StringSplitOptions.RemoveEmptyEntries).ToList(); //dtype: object,
+                string cleanedData = jsonResponse.Replace("\n", "").Trim();
+                var recommendationList = cleanedData.Split(new string[] { "  }," }, StringSplitOptions.RemoveEmptyEntries).ToList(); //dtype: object,
+
+                var jsonList = JsonSerializer.Deserialize<List<string>>(jsonResponse);
+
+                ConvertToCsv(jsonList);
 
                 return recommendationList;
             }
@@ -111,6 +117,24 @@ namespace Suggestions.Concrete
             file.FileNames = GetFile();
             file.ThisFileName = fileName;
             return file;
+        }
+        public async static Task ConvertToCsv<T>(IEnumerable<T> items)
+        {
+            var csv = new StringBuilder();
+            var properties = typeof(T).GetProperties();
+
+            // Header row
+            csv.AppendLine(string.Join(",", properties.Select(p => p.Name)));
+
+            string filePath = "suggestions.csv";
+            await File.WriteAllTextAsync(filePath, csv.ToString());
+            // Data rows
+            foreach (var item in items)
+            {
+                var values = properties.Select(p => p.GetValue(item)?.ToString() ?? string.Empty);
+                csv.AppendLine(string.Join(",", values));
+            }
+
         }
 
     }
