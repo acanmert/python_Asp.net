@@ -29,6 +29,17 @@ namespace Suggestions.Concrete
             }
             return dataFileNames;
         }
+         public void Download(List<string> data)
+        {
+            var csvContent = string.Join(Environment.NewLine, data);
+
+            var fileName = "suggestions.csv";
+            //Response.Headers.Add("Content-Disposition", "attachment; filename=" + fileName);
+            //Response.ContentType = "text/csv";
+
+
+            
+        }
 
         public List<string> DataUpload(IFormFile formFile)
         {
@@ -57,12 +68,6 @@ namespace Suggestions.Concrete
             string p_pk = p_primaryKey;
             string pType = p_type;
 
-            //string secim = "book_data.csv";
-            //string[] selectedFeatures = { "Name", "Genre" };
-            //string title = "ciglik";
-            //string pName = "Name";
-            //string pType = "hayir"; string secim = "book_data.csv";
-
 
             // Flask API'sine GET isteği gönder
             string apiUrl = $"http://127.0.0.1:5000/recommendations?secim={secim}&selected_features={string.Join(",", selectedFeatures)}&p_name={p_name}&p_pk={p_pk}&p_type={pType}";
@@ -73,18 +78,15 @@ namespace Suggestions.Concrete
                 // API'den dönen JSON verisini oku
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                //var recommendations = Newtonsoft.Json.JsonConvert.DeserializeObject<string[] >(jsonResponse);
-                //List<dynamic> resultList = JsonConvert.DeserializeObject<List<dynamic>>(jsonResponse);
 
-                //var resultList1 = JsonConvert.DeserializeObject<List<string>[]>(jsonResponse);
 
                 jsonResponse = jsonResponse.TrimStart('[').TrimEnd(']');
                 string cleanedData = jsonResponse.Replace("\n", "").Trim();
                 var recommendationList = cleanedData.Split(new string[] { "  }," }, StringSplitOptions.RemoveEmptyEntries).ToList(); //dtype: object,
 
-                var jsonList = JsonSerializer.Deserialize<List<string>>(jsonResponse);
+              //  var jsonList = JsonSerializer.Deserialize<List<string>>(jsonResponse);
 
-                ConvertToCsv(jsonList);
+                //ConvertToCsv(jsonList);
 
                 return recommendationList;
             }

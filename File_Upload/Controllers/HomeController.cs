@@ -51,38 +51,6 @@ namespace File_Upload.Controllers
 
 
 
-        public string Python(string fileName, List<string> benzerlikName, string productName, string getProductName, string p_type)
-        {
-            string output;
-            ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = "python"; // Python yorumlayıcısının yolu.
-            start.Arguments = "oneri.py"; // Python scriptinizin yolu.
-            start.UseShellExecute = false;
-            start.RedirectStandardInput = true;
-            start.RedirectStandardOutput = true;
-            start.RedirectStandardError = true;
-            start.StandardOutputEncoding = Encoding.UTF8;
-            start.StandardErrorEncoding = Encoding.UTF8;
-            using (Process process = Process.Start(start))
-            {
-                using (StreamWriter writer = process.StandardInput)
-                {
-                    string benzerlik = string.Join(",", benzerlikName);
-                    writer.WriteLine(fileName.ToString()); // Örneğin, veri seti seçimi için.
-                    writer.WriteLine(benzerlik.ToString());
-                    writer.WriteLine(getProductName.ToString());
-                    writer.WriteLine(productName.ToString());
-                    writer.WriteLine(p_type.ToString());
-                }
-
-                output = process.StandardOutput.ReadToEnd();
-
-
-            }
-            return output;
-        }
-
-
         public IActionResult Suggestions(string fileName)
         {
             FileUploadViewModel file = new FileUploadViewModel();
@@ -94,28 +62,12 @@ namespace File_Upload.Controllers
         }
         public async Task<IActionResult> ProcessSuggestions(string fileName, List<string> selectedFeatures, string p_pk, string p_name, string p_type)
         {
-            // async Task<IActionResult>
-            //IActionResult
-            //var recommendations = Python(fileName, benzerlikName, productName, getProductName, p_type);
-            //var recommendationList = recommendations.Split(new string[] { "dtype: object," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            //return View(recommendationList);
 
 
             var recommendations = await _suggestionsService.Get_recommendations(fileName, selectedFeatures, p_pk, p_name, p_type);
             return View(recommendations);
         }
 
-        public IActionResult Download(List<string> data)
-        {
-            var csvContent = string.Join(Environment.NewLine, data);
-
-            var fileName = "suggestions.csv";
-            Response.Headers.Add("Content-Disposition", "attachment; filename=" + fileName);
-            Response.ContentType = "text/csv";
-
-
-            return File(Encoding.UTF8.GetBytes(csvContent), "text/csv", fileName);
-        }
 
 
 
